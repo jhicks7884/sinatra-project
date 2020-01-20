@@ -1,0 +1,25 @@
+<% if Helpers.is_logged_in?(session) %>
+<%= @error %>
+
+<center><h1>Critters Deliveries, Create A Delivery Page</h1></center>
+  <center><form action='/deliveries' method="post">
+
+   Name:
+    <input type="text" name="name"><br>
+   <br>
+   Address:
+    <input type="text" name="address"><br>
+    <br>
+   Type of Food:
+    <input type="text" name="content"><br>
+    <br>
+   Submit Your Deliveries:
+    <input type="submit" name="submit" id="submit"><br>
+     <br>
+  </form></center>
+  
+  <a href="/logout">Log out</a>
+<br>
+ (JH).&copy;
+
+  <% end %>

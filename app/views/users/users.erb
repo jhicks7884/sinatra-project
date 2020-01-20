@@ -1,0 +1,23 @@
+<center><h2>Welcome to Critters Deliveries <%= @user.username %></h2></center>
+<br>
+<center><h3>My Deliveries page </h3></center>
+
+<ul>
+  <% Deliveries.all.each do |deliveries| %>
+    <ol style="font-size:165%;">
+       <%= @user.id %>.
+      <%= deliveries.name %><br>
+      <%= deliveries.address %><br>
+      <%= deliveries.content %>
+
+    </ol>
+  <% end %>
+</ul>
+
+<a href="/deliveries">Create delivery's</a>
+
+<a href="/logout">Log out</a>
+<br>
+ (JH).&copy;
+
+ 

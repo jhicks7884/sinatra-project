@@ -1,0 +1,12 @@
+<h1>Edit a Delivery</h1>
+
+
+<form action="/deliveries/<%= @deliveries.id %>" method="post" >
+	<input id="hidden" type="hidden" name="_method" value="patch"/>
+
+	<label>Current Deliveries: "<%= @deliveries.contents %>"</label>
+	<textarea type="text" name="contents"></textarea>
+
+	<input type="submit" value="submit" id='submit'/>
+
+</form>
