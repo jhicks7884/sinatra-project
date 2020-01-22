@@ -1,5 +1,4 @@
 class User < ActiveRecord::Base
     has_secure_password
-    belongs_to :deliveries
-   
+    has_many :deliveries
 end

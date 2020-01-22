@@ -6,18 +6,18 @@
   <% Deliveries.all.each do |deliveries| %>
     <ol style="font-size:165%;">
        <%= @user.id %>.
-      <%= deliveries.name %><br>
-      <%= deliveries.address %><br>
-      <%= deliveries.content %>
+       <%= deliveries.name %><br>
+       <%= deliveries.address %><br>
+       <%= deliveries.content %>
 
     </ol>
   <% end %>
 </ul>
 
 <a href="/deliveries">Create delivery's</a>
-
+<a href="/deliveries/id">edit delivery's</a>
+<a href="/deliveries/">all delivery's</a>
 <a href="/logout">Log out</a>
 <br>
  (JH).&copy;
 
- 

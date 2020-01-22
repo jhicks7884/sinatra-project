@@ -23,7 +23,7 @@ class DeliveriesController < ApplicationController
       redirect to '/login'
     end
     @user = Helpers.current_user(session)
-    @deliveries = Deliveries.new(content: params["content"], address: params["address"], name: params["name"], user_id: @user.id)
+    @deliveries = Deliveries.new(content: params["contents"], address: params["address"], name: params["name"], user_id: @user.id)
     if @deliveries.valid?
       @deliveries.save
       redirect to '/deliveries/'
@@ -37,29 +37,28 @@ class DeliveriesController < ApplicationController
     if !Helpers.is_logged_in?(session)
       redirect to '/login'
     end
-    @deliveries = deliveries.find(params[:id])
+    @user = Helpers.current_user(session)
+    @deliveries = Deliveries.new(content: params["contents"], address: params["address"], name: params["name"], user_id: @user.id)
+    @deliveries = Deliveries.find_by_id(params[:id])
     erb :'/deliveries/edit'
   end
 
   get '/deliveries/:id/edit' do
-    if !Helpers.is_logged_in?(session)
-      redirect to '/login'
-    end
-    @deliveries = deliveries.find(params[:id])
-    if @deliveries.user == Helpers.current_user(session)
-        erb :'/deliveries/edit'
-    else
-      redirect to '/login'
-    end
+    @deliveries = Deliveries.find(params[:id])
+    erb :'/deliveries/edit'
+  end
+
+  patch 'deliveries/' do
+    erb :deliveries/show
   end
 
   patch '/deliveries/:id' do
-    @deliveries = deliveries.find(params[:id])
-     if params[:contents].empty?
+    @deliveries = deliveries.find_by_id(params[:id])
+    if params["contents", "name", "address"].empty?
       redirect to "/deliveries/#{@deliveries.id}/edit"
     end
-
-    @deliveries.update(contents: params["contents"])
+  
+    @deliveries.update(content: params["contents"], name: params["name"], address: params["address"])
     @deliveries.save
     redirect to "/deliveries/#{@deliveries.id}"
 
@@ -67,11 +66,10 @@ class DeliveriesController < ApplicationController
 
   delete '/deliveries/:id/delete' do
     if Helpers.is_logged_in?(session)
-      @deliveries = deliveries.find(params[:id])
-      if @deliveries.user == Helpers.current_user(session)
-        @deliveries = deliveries.find_by_id(params[:id])
-        @deliveries.delete
-        redirect to '/deliveries'
+      @deliveries = Deliveries.find(params[:id])
+      if @deliveries == Helpers.current_user(session)
+      @deliveries.destroy
+      redirect to '/deliveries/'
       else
         redirect to '/deliveries'
       end
@@ -79,5 +77,4 @@ class DeliveriesController < ApplicationController
       redirect to '/login'
     end
   end
-
 end

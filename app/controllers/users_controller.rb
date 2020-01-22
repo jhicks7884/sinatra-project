@@ -1,9 +1,9 @@
 class UsersController < ApplicationController
 
     get '/signup' do
-        #if Helpers.is_logged_in?(session)
-        #  redirect to '/deliveries'
-        #end
+        if Helpers.is_logged_in?(session)
+          redirect to '/deliveries'
+        end
         erb :'/users/new'
       end
     
@@ -21,7 +21,7 @@ class UsersController < ApplicationController
     
       get '/login' do
         if Helpers.is_logged_in?(session)
-         redirect to '/deliveries'
+         redirect to '/users'
         end
         erb :'/users/login'
       end
@@ -43,6 +43,7 @@ class UsersController < ApplicationController
           @user = Helpers.current_user(session)
           @deliveries = Deliveries.new(content: params["contents"], address: params["address"], name: params["name"], user_id: @user.id)
           erb :'/users/users'
+
         end
       end
 

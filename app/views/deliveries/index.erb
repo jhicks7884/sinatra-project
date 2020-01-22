@@ -1,11 +1,11 @@
-<% if logged_in? %>
-  <h3><%= @deliveries.contents %></h3>
+<% if Helpers.is_logged_in?(session) %>
+  <h3><% Deliveries.contents %></h3>
   <h4>Delete?</h4>
-  <form action="/deliveries/<%=@deliveries.id%>/delete" method="post">
+  <form action="/deliveries/<%=@user.id%>/delete" method="post">
     <input type="hidden" name="_method" value="delete" id='hidden'>
     <input type="submit" value="Delete deliveries">
   </form>
-  <h4><a href="/deliveries/<%= @deliveries.id %>/edit">Edit Deliveries</a></h4>
+  <h4><a href="/deliveries/<%= @user.id %>/edit">Edit Deliveries</a></h4>
 <% else %>
   <a href="/login">Log In</a>
 <% end %>

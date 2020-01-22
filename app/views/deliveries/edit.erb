@@ -1,12 +1,27 @@
-<h1>Edit a Delivery</h1>
+<center><h1>Edit a Delivery, <%=@user.username%> </h1></center>
+
+	<form action="/deliveries/<%=@user.id %>" method="post">
+
+	 <label>Current Deliveries: </label><br>
+	 Contents:
+	 <textarea type="text" name="contents"></textarea><br>
+     Name:
+	 <textarea type="text" name="name"></textarea><br>
+     Address:
+	 <textarea type="text" name="address"></textarea><br>
+
+	 <input type="submit" value="submit" id='submit'/>
+
+    </form>
+
+<a href="/deliveries">Create delivery's</a>
+<a href="/deliveries/">delete delivery's</a>
+<a href="/users">Back</a>
+<a href="/logout">Log out</a>
+<br>
+ (JH).&copy;
 
 
-<form action="/deliveries/<%= @deliveries.id %>" method="post" >
-	<input id="hidden" type="hidden" name="_method" value="patch"/>
 
-	<label>Current Deliveries: "<%= @deliveries.contents %>"</label>
-	<textarea type="text" name="contents"></textarea>
 
-	<input type="submit" value="submit" id='submit'/>
-
-</form>
+ 
