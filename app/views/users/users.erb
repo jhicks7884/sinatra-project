@@ -2,17 +2,17 @@
 <br>
 <center><h3>My Deliveries page </h3></center>
 
-<ul>
+<ol>
   <% Deliveries.all.each do |deliveries| %>
-    <ol style="font-size:165%;">
-       <%= @user.id %>.
+    <li style="font-size:165%;">
+       <%= deliveries.id %>.
        <%= deliveries.name %><br>
        <%= deliveries.address %><br>
        <%= deliveries.content %>
 
-    </ol>
+    </li>
   <% end %>
-</ul>
+</ol>
 
 <a href="/deliveries/<%= @deliveries.id %>/new">Create Delivery's</a>
 <a href="/deliveries">Index all Delivery's</a>

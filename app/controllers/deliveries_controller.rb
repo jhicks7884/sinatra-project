@@ -9,7 +9,7 @@ class DeliveriesController < ApplicationController
     end
   end
 
-  get '/deliveries/new' do  #makes new deliveries
+  get '/deliveries/new' do  # makes new deliveries
     if Helpers.is_logged_in?(session)
       @user = Helpers.current_user(session)
       erb :'/deliveries/new'
@@ -56,9 +56,10 @@ class DeliveriesController < ApplicationController
  
 
   get '/deliveries/:id/edit' do   #edit's delivery
+    
       @delivery = Deliveries.find_by(id: params[:id])
-
-    if deliveries.id == current_user
+    
+    if @delivery.user_id == current_user.id
       erb :'/deliveries/edit'
     else
       #flash[:message] = "You cant edit Deliveries sign in?"
@@ -69,15 +70,17 @@ class DeliveriesController < ApplicationController
 
   patch '/deliveries/:id' do #saves updated delivery
     @deliveries = Deliveries.find_by(id: params[:id])
-    if @deliveries.id == current_user
+  
+
+    if @deliveries.user_id == current_user.id
      # redirect to "/deliveries/#{deliveries.id}/edit"
    
 
-     @deliveries.update(params[:deliveries])
+     @deliveries.update(params[:delivery])
      @deliveries.save
-    # redirect to "/deliveries/#{@deliveries.id}"
+     redirect to "/deliveries/#{@deliveries.id}"
     else
-      redirect '/users/users'
+      erb :'/users/users'
     end
 
   end

@@ -1,5 +1,5 @@
 
- <center><h1>Edit a Delivery, <%=@deliveries.users.username%> </h1></center>
+ <center><h1>Edit a Delivery, <%= @delivery.user.username%> </h1></center>
 
 <ol>
   <% Deliveries.all.each do |deliveries| %>
@@ -10,15 +10,15 @@
        <%= deliveries.content %>
     </li>
 
-    <form action="/deliveries/<%= @deliveries.id %>" method="post">
+    <form action="/deliveries/<%= deliveries.id %>" method="post">
       <input name="_method" id="hidden" type="hidden" value="patch">
 	    <label>Current Deliveries: </label><br>
 	    Full Name:
-	    <input type="text" name="name" value="<%=deliveries.name%>">
+	    <textarea <input type="text" name="delivery[name]"><%=deliveries.name%></textarea>
       Address:
-	    <input type="text" name="address" value="<%=deliveries.address%>">
+	    <textarea <input type="text" name="delivery[address]"><%=deliveries.address%></textarea>
       Content:
-	    <input type="text" name="content" value="<%=deliveries.content %>">
+	    <textarea <input type="text" name="delivery[content]"><%=deliveries.content%></textarea>
 
 	    <input type="submit" value="update deliveries"/>
 
