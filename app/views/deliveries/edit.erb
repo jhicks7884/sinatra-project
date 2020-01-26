@@ -1,42 +1,34 @@
-<%if Helpers.is_logged_in?(session) %>
- <center><h1>Edit a Delivery, <%=current_user.username%> </h1></center>
 
-<ul>
+ <center><h1>Edit a Delivery, <%=@deliveries.users.username%> </h1></center>
+
+<ol>
   <% Deliveries.all.each do |deliveries| %>
-    <ol style="font-size:165%;">
-       <%= deliveries.user_id %>.
+    <li style="font-size:165%;">
+       <%= deliveries.id %>
        <%= deliveries.name %><br>
        <%= deliveries.address %><br>
        <%= deliveries.content %>
+    </li>
 
-    </ol>
-  <% end %>
-</ul>
-
-  	<form action="/deliveries/<% current_user.id %>" method="post">
-
-	   <label>Current Deliveries: </label><br>
-	   <input type="hidden name="deliveries[user_id]" value="<%=current_user.id%>">
+    <form action="/deliveries/<%= @deliveries.id %>" method="post">
+      <input name="_method" id="hidden" type="hidden" value="patch">
+	    <label>Current Deliveries: </label><br>
 	    Full Name:
-	   <input type="text" name="name" value="<%=%>">
+	    <input type="text" name="name" value="<%=deliveries.name%>">
       Address:
-	   <input type="text" name="address" value="<%=%>">
+	    <input type="text" name="address" value="<%=deliveries.address%>">
       Content:
-	   <input type="text" name="content" value="<% %>">
-      
-	   <input type="submit" value="update deliveries"/>
+	    <input type="text" name="content" value="<%=deliveries.content %>">
+
+	    <input type="submit" value="update deliveries"/>
 
     </form>
+  <% end %>
+</ol>
 
-    <a href="/deliveries">Create delivery's</a>
+    <a href="/deliveries/new">Create delivery's</a>
     <a href="/deliveries/">delete delivery's</a>
     <a href="/users">Back</a>
     <a href="/logout">Log out</a>
     <br>
     (JH).&copy;
-  
-<%end%>
-
-
-
- 

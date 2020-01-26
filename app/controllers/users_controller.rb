@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 
     get '/signup' do
+     
         if Helpers.is_logged_in?(session)
           redirect to '/deliveries'
         end
@@ -8,7 +9,7 @@ class UsersController < ApplicationController
       end
     
       post '/signup' do
-        @user = User.create(params)
+        @user = User.new(params)
         if @user.valid?
           @user.save
           session["user_id"] = @user.id
@@ -23,6 +24,7 @@ class UsersController < ApplicationController
         if Helpers.is_logged_in?(session)
          redirect to '/users'
         end
+        
         erb :'/users/login'
       end
     
@@ -54,7 +56,6 @@ class UsersController < ApplicationController
           redirect to '/login'
         else
           redirect to '/'
-          erb :'/users/logout'
         end
     end
 end

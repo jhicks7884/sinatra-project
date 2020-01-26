@@ -1,22 +1,24 @@
-<% if Helpers.is_logged_in?(session) %>
- <center><h3>Welcome To The Delete Page, <%=current_user.username %></h3></center>
+ <center><h3>Welcome To The Index page, <%=current_user.username %></h3></center>
 
-<ul>
+<ol>
   <% Deliveries.all.each do |deliveries| %>
-    <ol style="font-size:165%;">
-       <%= @user.id %>.
+    <li style="font-size:165%;">
+       <%= deliveries.user.username %><br>
        <%= deliveries.name %><br>
        <%= deliveries.address %><br>
        <%= deliveries.content %>
+     <a href="/deliveries/<%=deliveries.id%>">show</a>
+    </li>
 
-    </ol>
-  <% end %>
-</ul>
-
-
- <form action="/deliveries/<%=current_user.id%>/delete" method="post"> <br>  <a href="/login">Log In</a <br> <a href="/users">Back</a>
+   <form action="/deliveries/<%=current_user.id%>/delete" method="post"> <br>  
     <input type="hidden" name="_method" value="delete" id='hidden'>
     <input type="submit" value="Delete deliveries">
-  </form>
+   </form>
 
-<% end %>
+  <% end %>
+</ol>
+
+
+<a href="/login">Log In</a <br> <a href="/logout">Logout</a>
+
+<a href="/users">Back</a>

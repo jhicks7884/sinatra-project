@@ -1,15 +1,6 @@
 class DeliveriesController < ApplicationController
 
-  get '/deliveries' do
-   # if Helpers.is_logged_in?(session)
-    #  @user = Helpers.current_user(session)
-      erb :'/deliveries/new'
-    #else
-     # redirect to '/login'
-    #end
-  end
-
-  get '/deliveries/' do
+  get '/deliveries' do  # shows index
     if Helpers.is_logged_in?(session)
       @user = Helpers.current_user(session)
       erb :'/deliveries/index'
@@ -18,7 +9,36 @@ class DeliveriesController < ApplicationController
     end
   end
 
-  post '/deliveries' do
+  get '/deliveries/new' do  #makes new deliveries
+    if Helpers.is_logged_in?(session)
+      @user = Helpers.current_user(session)
+      erb :'/deliveries/new'
+    else
+      redirect to '/login'
+    end
+  end
+
+
+ get '/deliveries/:id' do # shows show page
+  
+    if !Helpers.is_logged_in?(session)
+      redirect to '/login'
+    end
+    @delivery = Deliveries.find_by_id(params[:id])
+    erb :'/deliveries/show'
+  end
+
+  get '/deliveries/' do  # shows index
+    if Helpers.is_logged_in?(session)
+      @user = Helpers.current_user(session)
+      erb :'/deliveries/index'
+    else
+      redirect to '/login'
+    end
+  end
+
+
+  post '/deliveries/new' do   # shows new deliveries and validates
     if !Helpers.is_logged_in?(session)
       redirect to '/login'
     end
@@ -26,55 +46,43 @@ class DeliveriesController < ApplicationController
     @deliveries = Deliveries.new(content: params["content"], address: params["address"], name: params["name"], user_id: @user.id)
     if @deliveries.valid?
       @deliveries.save
-      redirect to '/deliveries/'
+      erb :'/users/users'
     else
       flash[:message] = "No Content"
       redirect to '/deliveries/new'
     end
   end
 
-  get '/deliveries/:id' do
-    if !Helpers.is_logged_in?(session)
-      redirect to '/login'
-    end
-    @user = Helpers.current_user(session)
-    @deliveries = Deliveries.new(content: params["content"], address: params["address"], name: params["name"], user_id: @user.id)
-    @deliveries = Deliveries.find_by_id(params[:id])
-    erb :'/deliveries/edit'
-  end
+ 
 
-  get '/deliveries/:id/edit' do
-     @deliveries = Deliveries.find_by(params[:id])
-    if logged_in? && current_user == @deliveries.user
-    
-     erb :'/deliveries/edit'
+  get '/deliveries/:id/edit' do   #edit's delivery
+      @delivery = Deliveries.find_by(id: params[:id])
+
+    if deliveries.id == current_user
+      erb :'/deliveries/edit'
     else
-      flash[:message] = "You cant edit Deliveries sign in?"
+      #flash[:message] = "You cant edit Deliveries sign in?"
       redirect to 'deliveries/new'
     end
 
   end
-  post '/deliveries/' do
-    erb :'/deliveries/show'
-  end
 
-  patch 'deliveries/' do
-    erb :deliveries/show
-  end
+  patch '/deliveries/:id' do #saves updated delivery
+    @deliveries = Deliveries.find_by(id: params[:id])
+    if @deliveries.id == current_user
+     # redirect to "/deliveries/#{deliveries.id}/edit"
+   
 
-  patch '/deliveries/:id' do
-    @deliveries = deliveries.find_by_id(params[:id])
-    if params["content", "name", "address"].empty?
-      redirect to "/deliveries/#{@deliveries.id}/edit"
+     @deliveries.update(params[:deliveries])
+     @deliveries.save
+    # redirect to "/deliveries/#{@deliveries.id}"
+    else
+      redirect '/users/users'
     end
-  
-    @deliveries.update(content: params["content"], name: params["name"], address: params["address"])
-    @deliveries.save
-    redirect to "/deliveries/#{@deliveries.id}"
 
   end
 
-  delete '/deliveries/:id/delete' do
+  delete '/deliveries/:id/delete' do  #deletes a deliver
     @deliveries = Deliveries.find_by(params[:id])
     @deliveries.delete
     redirect to '/deliveries/'

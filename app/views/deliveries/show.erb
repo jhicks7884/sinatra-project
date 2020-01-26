@@ -1,20 +1,17 @@
 <center><h2>Welcome to Critters Delivery's, <%= current_user.username %></h2></center>
-<h1><%%>
-<h2>name: <%=%></h2>
-<h3>All Deliveries</h3>
-<ul>
-  <% current_user.all.each do |deliveries| %>
-    <ol style="font-size:165%;">
-      <%= deliveries.user_id %>.<br>
-      <%= deliveries.name %><br>
-      <%= deliveries.address %><br>
-      <%= deliveries.content %>
 
-    </ol>
-  <% end %>
-</ul>
-<a href="/users">Back</a>
-<a href="/logout">Log out</a>
+<h3>Individual Deliveries</h3>
+
+   <div style="font-size:165%;">
+      <%= @delivery.id %>.<br>
+      <%= @delivery.name %><br>
+      <%= @delivery.address %><br>
+      <%= @delivery.content %>
+   </div>
+
+     <a href="/deliveries/<%= @delivery.id %>/edit">Edit Delivery's</a>
+     <a href="/users">Back</a>
+     <a href="/logout">Log out</a>
 <br>
  (JH).&copy;
 

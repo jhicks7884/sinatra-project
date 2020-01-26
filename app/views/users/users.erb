@@ -1,4 +1,4 @@
-<center><h2>Welcome to Critters Deliveries <%= @user.username %></h2></center>
+<center><h2>Welcome to Critters Deliveries <%= current_user.username %></h2></center>
 <br>
 <center><h3>My Deliveries page </h3></center>
 
@@ -14,10 +14,10 @@
   <% end %>
 </ul>
 
-<a href="/deliveries">Create delivery's</a>
-<a href="/deliveries/id">edit delivery's</a>
-<a href="/deliveries/show">all delivery's</a>
+<a href="/deliveries/<%= @deliveries.id %>/new">Create Delivery's</a>
+<a href="/deliveries">Index all Delivery's</a>
 <a href="/logout">Log out</a>
+<a href="/deliveries">Back</a>
 <br>
  (JH).&copy;
 
