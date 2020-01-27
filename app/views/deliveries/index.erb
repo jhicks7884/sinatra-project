@@ -1,7 +1,7 @@
  <center><h3>Welcome To The Index page, <%=current_user.username %></h3></center>
 
 <ol>
-  <% Deliveries.all.each do |deliveries| %>
+  <% Delivery.all.each do |deliveries| %>
     <li style="font-size:165%;">
        <%= deliveries.user.username %><br>
        <%= deliveries.name %><br>
@@ -10,13 +10,16 @@
      <a href="/deliveries/<%=deliveries.id%>">show</a>
     </li>
 
-   <form action="/deliveries/<%=current_user.id%>/delete" method="post"> <br>  
-    <input type="hidden" name="_method" value="delete" id='hidden'>
-    <input type="submit" value="Delete deliveries">
-   </form>
-
   <% end %>
 </ol>
+  <% @user.deliveries.each do |deliveries| %>
+   <form action="/deliveries/<%= deliveries.id %>/delete" method="post"> <br> 
+   <input type="hidden" name="_method" value="delete" id='hidden'>
+    <input type="submit" value="Delete deliveries">
+    
+   </form>
+  <%end%>
+
 
 
 <a href="/login">Log In</a <br> <a href="/logout">Logout</a>

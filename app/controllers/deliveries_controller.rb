@@ -24,7 +24,7 @@ class DeliveriesController < ApplicationController
     if !Helpers.is_logged_in?(session)
       redirect to '/login'
     end
-    @delivery = Deliveries.find_by_id(params[:id])
+    @delivery = Delivery.find_by_id(params[:id])
     erb :'/deliveries/show'
   end
 
@@ -43,9 +43,12 @@ class DeliveriesController < ApplicationController
       redirect to '/login'
     end
     @user = Helpers.current_user(session)
-    @deliveries = Deliveries.new(content: params["content"], address: params["address"], name: params["name"], user_id: @user.id)
+    #binding.pry
+    @deliveries = Delivery.new(content: params["content"], address: params["address"], name: params["name"], user_id: @user.id)
+    
     if @deliveries.valid?
       @deliveries.save
+     
       erb :'/users/users'
     else
       flash[:message] = "No Content"
@@ -54,8 +57,8 @@ class DeliveriesController < ApplicationController
   end
 
   get '/deliveries/:id/edit' do   #edit's delivery
-    @delivery = Deliveries.find_by(id: params[:id])
-
+    @delivery = Delivery.find_by(id: params[:id])
+   
     if @delivery.user_id == current_user.id
       erb :'/deliveries/edit'
     else
@@ -66,7 +69,7 @@ class DeliveriesController < ApplicationController
   end
 
   patch '/deliveries/:id' do #saves updated delivery
-    @deliveries = Deliveries.find_by(id: params[:id])
+    @deliveries = Delivery.find_by(id: params[:id])
 
 
     if @deliveries.user_id == current_user.id
@@ -81,7 +84,7 @@ class DeliveriesController < ApplicationController
   end
 
   delete '/deliveries/:id/delete' do  #deletes a delivery
-    @deliveries = Deliveries.find_by_id(params[:id])
+    @deliveries = Delivery.find_by(id: params[:id])
     @deliveries.delete
     redirect to '/deliveries/'
   end

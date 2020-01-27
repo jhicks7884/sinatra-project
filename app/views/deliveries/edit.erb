@@ -2,7 +2,7 @@
  <center><h1>Edit a Delivery, <%= @delivery.user.username%> </h1></center>
 
 <ol>
-  <% Deliveries.all.each do |deliveries| %>
+  <% Delivery.all.each do |deliveries| %>
     <li style="font-size:165%;">
        <%= deliveries.id %>
        <%= deliveries.name %><br>

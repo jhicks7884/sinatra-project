@@ -1,11 +1,10 @@
 class UsersController < ApplicationController
 
     get '/signup' do
-
-        if Helpers.is_logged_in?(session)
-          redirect to '/deliveries'
+       if Helpers.is_logged_in?(session)
+         redirect to '/deliveries'
         end
-        erb :'/users/new'
+         erb :'/users/new'
       end
 
       post '/signup' do
@@ -15,8 +14,8 @@ class UsersController < ApplicationController
           session["user_id"] = @user.id
           redirect to '/deliveries'
         else
-          flash[:message] = "Missing Signup Field, Please Try Again"
-          redirect to '/signup'
+         # flash[:message] = "Missing Signup Field, Please Try Again"
+         # redirect to '/signup'
         end
       end
 
@@ -35,7 +34,7 @@ class UsersController < ApplicationController
           session[:user_id] = @user.id
           redirect to '/users'
         else
-          flash[:login_error] = "Login Info Incorrect.  Please try again."
+          #flash[:login_error] = "Login Info Incorrect.  Please try again."
            erb :'/users/login'
         end
       end
@@ -43,11 +42,17 @@ class UsersController < ApplicationController
       get '/users' do
         if Helpers.is_logged_in?(session)
           @user = Helpers.current_user(session)
-          @deliveries = Deliveries.new(content: params["contents"], address: params["address"], name: params["name"], user_id: @user.id)
+          @deliveries = Delivery.new(content: params["contents"], address: params["address"], name: params["name"], user_id: @user.id)
           erb :'/users/users'
 
         end
       end
+
+
+      get '/users/admin' do
+        erb :'/users/admin'
+      end
+    
 
 
       get '/logout' do
