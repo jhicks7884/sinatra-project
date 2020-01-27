@@ -19,8 +19,8 @@ class DeliveriesController < ApplicationController
   end
 
 
- get '/deliveries/:id' do # shows show page
-  
+  get '/deliveries/:id' do # shows show page
+
     if !Helpers.is_logged_in?(session)
       redirect to '/login'
     end
@@ -53,12 +53,9 @@ class DeliveriesController < ApplicationController
     end
   end
 
- 
-
   get '/deliveries/:id/edit' do   #edit's delivery
-    
-      @delivery = Deliveries.find_by(id: params[:id])
-    
+    @delivery = Deliveries.find_by(id: params[:id])
+
     if @delivery.user_id == current_user.id
       erb :'/deliveries/edit'
     else
@@ -70,11 +67,10 @@ class DeliveriesController < ApplicationController
 
   patch '/deliveries/:id' do #saves updated delivery
     @deliveries = Deliveries.find_by(id: params[:id])
-  
+
 
     if @deliveries.user_id == current_user.id
      # redirect to "/deliveries/#{deliveries.id}/edit"
-   
 
      @deliveries.update(params[:delivery])
      @deliveries.save
@@ -82,11 +78,10 @@ class DeliveriesController < ApplicationController
     else
       erb :'/users/users'
     end
-
   end
 
-  delete '/deliveries/:id/delete' do  #deletes a deliver
-    @deliveries = Deliveries.find_by(params[:id])
+  delete '/deliveries/:id/delete' do  #deletes a delivery
+    @deliveries = Deliveries.find_by_id(params[:id])
     @deliveries.delete
     redirect to '/deliveries/'
   end
