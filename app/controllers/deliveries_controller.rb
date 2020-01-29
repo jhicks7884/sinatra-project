@@ -1,27 +1,25 @@
 class DeliveriesController < ApplicationController
 
   get '/deliveries' do  # shows index
-    if logged_in?
-      @user = current_user
-      erb :'/deliveries/index'
-    else
+    if !logged_in?
       redirect to '/login'
+    else
+     @user = current_user
+      erb :'/deliveries/index'
     end
   end
 
   get '/deliveries/new' do  # makes new deliveries
     if !logged_in?
-      @user = current_user
-
-      erb :'/deliveries/new'
+       redirect to '/login'
     else
-      redirect to '/login'
+      @user = current_user
+      erb :'/deliveries/new'
     end
   end
 
 
   get '/deliveries/:id' do # shows show page
-
     if !logged_in?
       redirect to '/login'
     end
@@ -31,10 +29,10 @@ class DeliveriesController < ApplicationController
 
   get '/deliveries/' do  # shows index
     if !logged_in?
+      redirect to '/login'
+    else
       @user =current_user
       erb :'/deliveries/index'
-    else
-      redirect to '/login'
     end
   end
 

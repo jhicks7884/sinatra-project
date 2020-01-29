@@ -9,11 +9,11 @@
        <%= deliveries.content %>
      <a href="/deliveries/<%=deliveries.id%>">show</a>
     </li>
-       
+
    <form action="/deliveries/<%= deliveries.id %>/delete" method="post"> <br> 
    <input type="hidden" name="_method" value="delete" id='hidden'>
     <input type="submit" value="Delete delivery">
-    
+
    </form>
   <% end %>
 </ol>
