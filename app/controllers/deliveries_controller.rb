@@ -76,7 +76,7 @@ class DeliveriesController < ApplicationController
      @deliveries.save
      redirect to "/deliveries/#{@deliveries.id}"
     else
-      erb :'/users/users'
+      redirect to '/deliveries'
     end
   end
 
@@ -84,7 +84,7 @@ class DeliveriesController < ApplicationController
     @deliveries = Delivery.find_by(id: params[:id])
     if @deliveries.user_id == current_user.id
       @deliveries.delete
-      erb :'/users/users'
+      redirect '/users'
     else
       redirect to 'deliveries/new'
     end

@@ -40,17 +40,16 @@ class UsersController < ApplicationController
       end
 
       get '/users' do
-        if logged_in?
+        if !logged_in?
+          redirect '/login'
+        else
           @user = current_user
           @deliveries = Delivery.new(content: params["contents"], address: params["address"], name: params["name"], user_id: @user.id)
-
          erb :'/users/users'
-
         end
       end
 
       get '/logout' do
-
 
         if logged_in?
           session.clear
