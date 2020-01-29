@@ -2,28 +2,28 @@
  <center><h1>Edit a Delivery, <%= @delivery.user.username%> </h1></center>
 
 <ol>
-  <% Delivery.all.each do |deliveries| %>
+  <% @delivery.id %>
     <li style="font-size:165%;">
-       <%= deliveries.user.id %>
-       <%= deliveries.name %><br>
-       <%= deliveries.address %><br>
-       <%= deliveries.content %>
+       <%= @delivery.user.id %>
+       <%= @delivery.name %><br>
+       <%= @delivery.address %><br>
+       <%= @delivery.content %>
     </li>
 
-    <form action="/deliveries/<%= deliveries.id %>" method="post">
+     <form action="/deliveries/<%= @delivery.id %>" method="post">
       <input name="_method" id="hidden" type="hidden" value="patch">
 	    <label>Current Deliveries: </label><br>
 	    Full Name:
-	    <textarea <input type="text" name="delivery[name]"><%=deliveries.name%></textarea>
+	    <textarea <input type="text" name="delivery[name]"><%=@delivery.name%></textarea>
       Address:
-	    <textarea <input type="text" name="delivery[address]"><%=deliveries.address%></textarea>
+	    <textarea <input type="text" name="delivery[address]"><%=@delivery.address%></textarea>
       Food for delivery:
-	    <textarea <input type="text" name="delivery[content]"><%=deliveries.content%></textarea>
+	    <textarea <input type="text" name="delivery[content]"><%=@delivery.content%></textarea>
 
 	    <input type="submit" value="update deliveries"/>
 
     </form>
-  <% end %>
+ 
 </ol>
 
     <a href="/deliveries/new">Create delivery's</a>

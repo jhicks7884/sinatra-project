@@ -1,9 +1,9 @@
 <center><h2>Welcome to Critters Deliveries <%= current_user.username %></h2></center>
 <br>
-<center><h3>My Deliveries page </h3></center>
+<center><h3>My Delivery's page </h3></center>
 
 <ol>
-  <% current_user.deliveries.all.each do |deliveries| %>
+  <% Delivery.all.each do |deliveries| %>
     <li style="font-size:165%;">
        <%= deliveries.user.username %>.
        <%= deliveries.name %><br>

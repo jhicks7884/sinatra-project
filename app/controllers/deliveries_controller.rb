@@ -1,8 +1,8 @@
 class DeliveriesController < ApplicationController
 
   get '/deliveries' do  # shows index
-    if Helpers.is_logged_in?(session)
-      @user = Helpers.current_user(session)
+    if logged_in?
+      @user = current_user
       erb :'/deliveries/index'
     else
       redirect to '/login'
@@ -10,8 +10,9 @@ class DeliveriesController < ApplicationController
   end
 
   get '/deliveries/new' do  # makes new deliveries
-    if Helpers.is_logged_in?(session)
-      @user = Helpers.current_user(session)
+    if !logged_in?
+      @user = current_user
+
       erb :'/deliveries/new'
     else
       redirect to '/login'
@@ -21,7 +22,7 @@ class DeliveriesController < ApplicationController
 
   get '/deliveries/:id' do # shows show page
 
-    if !Helpers.is_logged_in?(session)
+    if !logged_in?
       redirect to '/login'
     end
     @delivery = Delivery.find_by_id(params[:id])
@@ -29,8 +30,8 @@ class DeliveriesController < ApplicationController
   end
 
   get '/deliveries/' do  # shows index
-    if Helpers.is_logged_in?(session)
-      @user = Helpers.current_user(session)
+    if !logged_in?
+      @user =current_user
       erb :'/deliveries/index'
     else
       redirect to '/login'
@@ -39,17 +40,17 @@ class DeliveriesController < ApplicationController
 
 
   post '/deliveries/new' do   # shows new deliveries and validates
-    if !Helpers.is_logged_in?(session)
+    if !logged_in?
+
       redirect to '/login'
     end
-    @user = Helpers.current_user(session)
 
+    @user = current_user
     @deliveries = Delivery.new(content: params["content"], address: params["address"], name: params["name"], user_id: @user.id)
-
     if @deliveries.valid?
       @deliveries.save
 
-      erb :'/users/users'
+     redirect  '/deliveries'
     else
       flash[:message] = "No Content"
       redirect to '/deliveries/new'
