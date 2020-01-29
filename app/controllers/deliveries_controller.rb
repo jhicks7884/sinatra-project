@@ -43,12 +43,12 @@ class DeliveriesController < ApplicationController
       redirect to '/login'
     end
     @user = Helpers.current_user(session)
-    #binding.pry
+
     @deliveries = Delivery.new(content: params["content"], address: params["address"], name: params["name"], user_id: @user.id)
-    
+
     if @deliveries.valid?
       @deliveries.save
-     
+
       erb :'/users/users'
     else
       flash[:message] = "No Content"
@@ -56,9 +56,9 @@ class DeliveriesController < ApplicationController
     end
   end
 
-  get '/deliveries/:id/edit' do   #edit's delivery
+  get '/deliveries/:id/edit' do   #edit's a delivery
     @delivery = Delivery.find_by(id: params[:id])
-   
+
     if @delivery.user_id == current_user.id
       erb :'/deliveries/edit'
     else
@@ -71,9 +71,7 @@ class DeliveriesController < ApplicationController
   patch '/deliveries/:id' do #saves updated delivery
     @deliveries = Delivery.find_by(id: params[:id])
 
-
     if @deliveries.user_id == current_user.id
-     # redirect to "/deliveries/#{deliveries.id}/edit"
 
      @deliveries.update(params[:delivery])
      @deliveries.save
@@ -85,7 +83,11 @@ class DeliveriesController < ApplicationController
 
   delete '/deliveries/:id/delete' do  #deletes a delivery
     @deliveries = Delivery.find_by(id: params[:id])
-    @deliveries.delete
-    redirect to '/deliveries/'
+    if @deliveries.user_id == current_user.id
+      @deliveries.delete
+      erb :'/users/users'
+    else
+      redirect to 'deliveries/new'
+    end
   end
 end

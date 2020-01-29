@@ -1,6 +1,6 @@
 <center><h2>Welcome to Critters Delivery's, <%= current_user.username %></h2></center>
 
-<h3>Individual Deliveries</h3>
+<h3>Individual Delivery</h3>
 
    <div style="font-size:165%;">
       <%= @delivery.id %>.<br>
@@ -9,7 +9,7 @@
       <%= @delivery.content %>
    </div>
 
-     <a href="/deliveries/<%= @delivery.id %>/edit">Edit Delivery's</a>
+     <a href="/deliveries/<%= @delivery.id %>/edit">Edit Delivery</a>
      <a href="/users">Back</a>
      <a href="/logout">Log out</a>
 <br>

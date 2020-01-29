@@ -3,9 +3,9 @@
 <center><h3>My Deliveries page </h3></center>
 
 <ol>
-  <% Delivery.all.each do |deliveries| %>
+  <% current_user.deliveries.all.each do |deliveries| %>
     <li style="font-size:165%;">
-       <%= deliveries.id %>.
+       <%= deliveries.user.username %>.
        <%= deliveries.name %><br>
        <%= deliveries.address %><br>
        <%= deliveries.content %>
@@ -14,8 +14,8 @@
   <% end %>
 </ol>
 
-<a href="/deliveries/<%= @deliveries.id %>/new">Create Delivery's</a>
-<a href="/deliveries">Index all Delivery's</a>
+<a href="/deliveries/<%= @deliveries.id %>/new">Create a Delivery</a>
+<a href="/deliveries">All Delivery's</a>
 <a href="/logout">Log out</a>
 <a href="/deliveries">Back</a>
 <br>

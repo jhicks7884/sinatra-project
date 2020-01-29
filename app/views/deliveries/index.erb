@@ -9,19 +9,15 @@
        <%= deliveries.content %>
      <a href="/deliveries/<%=deliveries.id%>">show</a>
     </li>
-
-  <% end %>
-</ol>
-  <% @user.deliveries.each do |deliveries| %>
+       
    <form action="/deliveries/<%= deliveries.id %>/delete" method="post"> <br> 
    <input type="hidden" name="_method" value="delete" id='hidden'>
-    <input type="submit" value="Delete deliveries">
+    <input type="submit" value="Delete delivery">
     
    </form>
-  <%end%>
+  <% end %>
+</ol>
 
-
-
-<a href="/login">Log In</a <br> <a href="/logout">Logout</a>
+<br> <a href="/logout">Logout</a>
 
 <a href="/users">Back</a>

@@ -4,7 +4,7 @@
 <ol>
   <% Delivery.all.each do |deliveries| %>
     <li style="font-size:165%;">
-       <%= deliveries.id %>
+       <%= deliveries.user.id %>
        <%= deliveries.name %><br>
        <%= deliveries.address %><br>
        <%= deliveries.content %>
