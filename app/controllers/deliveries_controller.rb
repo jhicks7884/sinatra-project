@@ -31,7 +31,7 @@ class DeliveriesController < ApplicationController
     if !logged_in?
       redirect to '/login'
     else
-      @user =current_user
+      @user = current_user
       erb :'/deliveries/index'
     end
   end

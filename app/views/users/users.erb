@@ -3,7 +3,7 @@
 <center><h3>My Delivery's page </h3></center>
 
 <ol>
-  <% Delivery.all.each do |deliveries| %>
+  <% current_user.deliveries.all.each do |deliveries| %>
     <li style="font-size:165%;">
        <%= deliveries.user.username %>.
        <%= deliveries.name %><br>
@@ -11,7 +11,7 @@
        <%= deliveries.content %>
 
     </li>
-  <% end %>
+  <%end%>
 </ol>
 
 <a href="/deliveries/<%= @deliveries.id %>/new">Create a Delivery</a>
