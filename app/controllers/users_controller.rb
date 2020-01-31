@@ -44,7 +44,7 @@ class UsersController < ApplicationController
           redirect '/login'
         else
           @user = current_user
-          @deliveries = Delivery.new(content: params["contents"], address: params["address"], name: params["name"], user_id: @user.id)
+          @deliveries = Delivery.all
          erb :'/users/users'
         end
       end

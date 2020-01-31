@@ -1,9 +1,9 @@
  <center><h3>Welcome To The Index page, <%=current_user.username %></h3></center>
 
 <ol>
-  <% @deliveries.all.each do |deliveries| %>
+  <% @deliveries.each do |delivery| %>
 
-   <form action="/deliveries/<%= deliveries.id %>/delete" method="post"> <br>  
+   <form action="/deliveries/<%= delivery.id %>/delete" method="post"> <br>  
     <input type="hidden" name="_method" value="delete" id='hidden'>
     <input type="submit" value="Delete deliveries">
    </form>

@@ -27,15 +27,6 @@ class DeliveriesController < ApplicationController
     erb :'/deliveries/show'
   end
 
-  get '/deliveries/' do  # shows index
-    if !logged_in?
-      redirect to '/login'
-    else
-      @user = current_user
-      erb :'/deliveries/index'
-    end
-  end
-
 
   post '/deliveries/new' do   # shows new deliveries and validates
     if !logged_in?
@@ -44,9 +35,9 @@ class DeliveriesController < ApplicationController
     end
 
     @user = current_user
-    @deliveries = Delivery.new(content: params["content"], address: params["address"], name: params["name"], user_id: @user.id)
-    if @deliveries.valid?
-      @deliveries.save
+    @delivery = Delivery.new(content: params["content"], address: params["address"], name: params["name"], user_id: @user.id)
+    if @delivery.valid?
+      @delivery.save
 
      redirect  '/deliveries'
     else
@@ -68,22 +59,22 @@ class DeliveriesController < ApplicationController
   end
 
   patch '/deliveries/:id' do #saves updated delivery
-    @deliveries = Delivery.find_by(id: params[:id])
+    @delivery = Delivery.find_by(id: params[:id])
 
-    if @deliveries.user_id == current_user.id
+    if @delivery.user_id == current_user.id
 
-     @deliveries.update(params[:delivery])
-     @deliveries.save
-     redirect to "/deliveries/#{@deliveries.id}"
+     @delivery.update(params[:delivery])
+     @delivery.save
+     redirect to "/deliveries/#{@delivery.id}"
     else
       redirect to '/deliveries'
     end
   end
 
   delete '/deliveries/:id/delete' do  #deletes a delivery
-    @deliveries = Delivery.find_by(id: params[:id])
-    if @deliveries.user_id == current_user.id
-      @deliveries.delete
+    @delivery = Delivery.find_by(id: params[:id])
+    if @delivery.user_id == current_user.id
+      @delivery.delete
       redirect '/users'
     else
       redirect to 'deliveries/new'

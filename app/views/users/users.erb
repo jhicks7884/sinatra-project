@@ -3,18 +3,18 @@
 <center><h3>My Delivery's page </h3></center>
 
 <ol>
-  <% current_user.deliveries.all.each do |deliveries| %>
+  <% current_user.deliveries.each do |delivery| %>
     <li style="font-size:165%;">
-       <%= deliveries.user.username %>.
-       <%= deliveries.name %><br>
-       <%= deliveries.address %><br>
-       <%= deliveries.content %>
+       <%= delivery.user.username %>.
+       <%= delivery.name %><br>
+       <%= delivery.address %><br>
+       <%= delivery.content %>
 
     </li>
   <%end%>
 </ol>
 
-<a href="/deliveries/<%= @deliveries.id %>/new">Create a Delivery</a>
+<a href="/deliveries/new">Create a Delivery</a>
 <a href="/deliveries">All Delivery's</a>
 <a href="/logout">Log out</a>
 <a href="/deliveries">Back</a>

@@ -1,19 +1,18 @@
  <center><h3>Welcome To The Index page, <%=current_user.username %></h3></center>
 
 <ol>
-  <% Delivery.all.each do |deliveries| %>
+  <% current_user.deliveries.each do |delivery| %>
     <li style="font-size:165%;">
-       <%= deliveries.user.username %><br>
-       <%= deliveries.name %><br>
-       <%= deliveries.address %><br>
-       <%= deliveries.content %>
-     <a href="/deliveries/<%=deliveries.id%>">show</a>
+       <%= delivery.user.username %><br>
+       <%= delivery.name %><br>
+       <%= delivery.address %><br>
+       <%= delivery.content %>
+     <a href="/deliveries/<%=delivery.id%>">show</a>
     </li>
 
-   <form action="/deliveries/<%= deliveries.id %>/delete" method="post"> <br> 
-   <input type="hidden" name="_method" value="delete" id='hidden'>
+   <form action="/deliveries/<%= delivery.id %>/delete" method="post"> <br> 
+    <input type="hidden" name="_method" value="delete" id='hidden'>
     <input type="submit" value="Delete delivery">
-
    </form>
   <% end %>
 </ol>
